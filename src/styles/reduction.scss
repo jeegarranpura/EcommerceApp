@@ -1,0 +1,13 @@
+@import 'variables';
+
+@import './main.scss';
+
+//base
+@import 'base';
+@import 'overrides';
+@import 'extends';
+// @import 'animations';
+
+//components
+@import 'components/login';
+@import 'components/dashboard';
