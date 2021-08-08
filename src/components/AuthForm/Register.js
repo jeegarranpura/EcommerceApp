@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import bn from "../../utils/bemnames";
 
 const bem = bn.create("register");
@@ -11,8 +11,42 @@ const Register = ({
   handleOnChangeCpassword,
   fullName,
   email,
-  mobile_no
+  mobile_no,
+  password,
+  confirm_password,
+  RegisterUserReq,
 }) => {
+
+  const [formVal, setFormVal] = useState({
+    name: "",
+    password: "",
+  });
+
+  const inputEvent = (event) => {
+    const { name, value } = event.target;
+    setFormVal((preValue) => {
+      return {
+        ...preValue,
+        [name]: value,
+      };
+    });
+  };
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+    if(formVal.password === formVal.confirm_password){
+      const data = {
+        name : fullName,
+        email : email,
+        password : password,
+        mobile_no : mobile_no
+      }
+      await RegisterUserReq(formVal)
+    }else {
+      console.log("password not matched");
+    }
+    
+    
+  }
   return (
     <>
       <div className={bem.b("")}>
@@ -45,7 +79,7 @@ const Register = ({
                 <div className="card">
                   <div className="card-header">Register</div>
                   <div className="card-body">
-                    <form name="my-form" action="success.php" method="">
+                    <form name="my-form" action="#" onSubmit={handleSubmit}  method="get">
                       <div className="form-group row">
                         <label
                           for="full_name"
@@ -56,11 +90,10 @@ const Register = ({
                         <div className="col-md-6">
                           <input
                             type="text"
-                            id="full_name"
+                            id="name"
                             className="form-control mb-3"
-                            name="full-name"
-                            value={fullName}
-                            onChange={handleOnChangeName}
+                            name="name"
+                            onChange={inputEvent}
                           />
                         </div>
                       </div>
@@ -75,11 +108,10 @@ const Register = ({
                         <div className="col-md-6">
                           <input
                             type="email"
-                            id="email_address"
+                            id="email"
                             className="form-control mb-3"
-                            name="email-address"
-                            value={email}
-                            onChange={handleOnChangeEmail}
+                            name="email"
+                            onChange={inputEvent}
                           />
                         </div>
                       </div>
@@ -96,8 +128,8 @@ const Register = ({
                             type="text"
                             id="phone_number"
                             className="form-control mb-3"
-                            value={mobile_no}
-                            onChange={handleOnChangeMobileno}
+                            name="mobile_no"
+                            onChange={inputEvent}
                           />
                         </div>
                       </div>
@@ -113,8 +145,9 @@ const Register = ({
                           <input
                             type="password"
                             id="password"
+                            name="password"
                             className="form-control mb-3"
-                            onChange={handleOnChangePassword}
+                            onChange={inputEvent}
                           />
                         </div>
                       </div>
@@ -130,8 +163,9 @@ const Register = ({
                           <input
                             type="password"
                             id="confirm_password"
+                            name="confirm_password"
                             className="form-control mb-3"
-                            onChange={handleOnChangeCpassword}
+                            onChange={inputEvent}
                           />
                         </div>
                       </div>

@@ -8,6 +8,7 @@ import {
   handleOnChangeEmail,
   handleOnChangePassword,
   handleOnChangeCpassword,
+  RegisterUserReq
 } from "./RegisterSlice";
 
 const RegisterContainer = ({
@@ -16,6 +17,7 @@ const RegisterContainer = ({
   handleOnChangeEmail,
   handleOnChangePassword,
   handleOnChangeCpassword,
+  RegisterUserReq
 }) => {
   return (
     <Register
@@ -24,6 +26,7 @@ const RegisterContainer = ({
       handleOnChangeEmail={handleOnChangeEmail}
       handleOnChangePassword={handleOnChangePassword}
       handleOnChangeCpassword={handleOnChangeCpassword}
+      RegisterUserReq={RegisterUserReq}
       // fullName={fullName}
     />
   );
@@ -32,10 +35,14 @@ const RegisterContainer = ({
 const SelectFullname = (state) => state.register.fullName;
 const SelectEmail = (state) => state.register.email;
 const SelectMobile_no = (state) => state.register.mobile_no;
+const SelectPassword = (state) => state.register.password;
+const SelectConfirm_password = (state) => state.register.confirm_password;
 const mapStateProps = (state) => ({
   fullName: SelectFullname(state),
   email: SelectEmail(state),
   mobile_no: SelectMobile_no(state),
+  confirm_password: SelectConfirm_password(state),
+  password: SelectPassword(state)
 });
 
 const mapDispatchToProps = {
@@ -44,6 +51,7 @@ const mapDispatchToProps = {
   handleOnChangeEmail,
   handleOnChangePassword,
   handleOnChangeCpassword,
+  RegisterUserReq
 };
 
 export default connect(mapStateProps, mapDispatchToProps)(RegisterContainer);

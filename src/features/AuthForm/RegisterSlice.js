@@ -1,4 +1,15 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
+import { registerUserReq, loginUserReq } from '../../utils/auth-utils';
+
+export const RegisterUserReq = createAsyncThunk('RegisterUserReq', async (arg) => {
+  const response = await registerUserReq(arg.name, arg.email, arg.password, arg.mobile_no);
+  return response;
+});
+
+export const LoginReq = createAsyncThunk('LoginReq', async (arg) => {
+  const response = await loginUserReq(arg.email, arg.password);
+  return response;
+} )
 
 const RegisterSlice = createSlice({
   name: "register",
@@ -8,6 +19,7 @@ const RegisterSlice = createSlice({
     password: "",
     confirm_password: "",
     mobile_no: "",
+    data : [],
   },
   reducers: {
     handleOnChangeName: {
@@ -66,7 +78,19 @@ const RegisterSlice = createSlice({
       },
     },
   },
-  extraReducers: {},
+  extraReducers: {
+    [RegisterUserReq.fulfilled] : (state, action) =>{
+      if(action.payload !== null){
+        console.log("from slice");
+      }
+    },
+    [LoginReq.fulfilled] : (state, action) =>{
+      if(action.payload !== null) {
+        state.data = action.payload;
+        console.log(action.payload);
+      }
+    }
+  },
 });
 
 export const {

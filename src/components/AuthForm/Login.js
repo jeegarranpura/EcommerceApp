@@ -1,9 +1,37 @@
 import PropTypes from "prop-types";
-import React, { useEffect } from "react";
+import { history } from "../../utils/navigation-utils";
+import React, { useEffect, useState } from "react";
 import bn from "../../utils/bemnames";
 
 const bem = bn.create("login");
-const Login = () => {
+const Login = ({
+  LoginReq,
+  props,
+}) => {
+
+  const [formVal, setFormVal] = useState({
+    name: "",
+    password: "",
+  });
+
+  const inputEvent = (event) => {
+    const { name, value } = event.target;
+    setFormVal((preValue) => {
+      return {
+        ...preValue,
+        [name]: value,
+      };
+    });
+  };
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+    const data = {
+      email:"Jeegar@gmail.com",
+      password : "123456"
+    }
+    await LoginReq(formVal);
+
+  }
   return (
     <>
       <div className={bem.b("")}>
@@ -36,8 +64,8 @@ const Login = () => {
                 <div className="card">
                   <div className="card-header">Login</div>
                   <div className="card-body">
-                    <form name="my-form" action="success.php" method="">
-                      <div className="form-group row">
+                    <form name="my-form" action="" method="get" onSubmit={handleSubmit}>
+                      <div className="form-group row"> 
                         <label
                           for="email_address"
                           className="col-md-4 col-form-label text-md-right mb-3"
@@ -47,9 +75,11 @@ const Login = () => {
                         <div className="col-md-6">
                           <input
                             type="email"
-                            id="email_address"
+                            id="email"
                             className="form-control mb-3"
-                            name="email-address"
+                            name="email"
+                            onChange={inputEvent}
+                            
                           />
                         </div>
                       </div>
@@ -64,15 +94,17 @@ const Login = () => {
                         <div className="col-md-6">
                           <input
                             type="password"
-                            id="full_name"
+                            id="password"
                             className="form-control mb-3"
-                            name="full-name"
+                            name="password"
+                            onChange={inputEvent}
+
                           />
                         </div>
                       </div>
 
                       <div className="col-md-6 offset-md-4">
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary" >
                           Login
                         </button>
                       </div>

@@ -1,16 +1,17 @@
+import React from 'react';
+import PageSpinner from './components/PageSpinner';
 import {Router, Route, Redirect, Switch } from 'react-router-dom';
 import pathConts from './constants/pathConts';
-import React from 'react';
-// import Login from  './features/AuthForm/RegisterContainer';
+import Login from  './features/AuthForm/LoginContainer';
 import { history } from  './utils/navigation-utils';
 import MainLayout from  './layout/MainLayout';
-import pageSnipper from './components/PageSpinner';
+import Logincomponent from './components/AuthForm/Login';
 import './styles/reduction.scss';
 
 
 const Register = React.lazy(() => import('./features/AuthForm/RegisterContainer'));
 const Dashboard = React.lazy(() => import('./features/Dashboard/DashboardContainer'));
-const Login = React.lazy(() => import('./features/AuthForm/LoginContainer'));
+
 
 
 const getBasename = () => {
@@ -25,29 +26,29 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       render={(props) => {
           return <Component {...props} />;
           // window.location.href = pathConts.DASHBOARD;
+          // <Redirect to={pathConts.LOGIN} Component={Logincomponent} {...props}/>
       }}
     />
   );
 };
 function App(props) {
   return (
-    
     <Router basename={() => getBasename()} history={history} >
       <Switch>
-        {/* <Route
+        <Route
           path={pathConts.LOGIN}
-          Component={Login}
+          Component={Logincomponent}
           render={(props) => {
-              return <Redirect to="/login" />;
+              // return <Redirect to="/login" />;
+              return <Login {...props} />
           }}
-        /> */}
+        />
 
         <MainLayout>
-          <React.Suspense fallback={<pageSnipper />} > 
+          <React.Suspense fallback={<PageSpinner />} > 
              <Switch>
               <PrivateRoute exact path={pathConts.DASHBOARD} component={Dashboard} />
               <PrivateRoute exact path={pathConts.REGISTER} component={Register} />
-              <PrivateRoute exact path={pathConts.LOGIN} component={Login} />
             </Switch>
            </React.Suspense> 
         </MainLayout>
