@@ -5,6 +5,7 @@ const router = express.Router();
 const auth = require('../controllers/auth');
 const jwt = require('jsonwebtoken');
 const config = require('../config/secret.json');
+const { authenticationToken } = require('../utils/AuthUtils');
 
 
 router.post('/register/registerUser', userRegister);

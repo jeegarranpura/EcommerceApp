@@ -21,10 +21,13 @@ app.use(express.static(path.join(__dirname, '../') + '/build'));
 //   });
 
 app.use('/api/v1', require('./routes/authRoute'));
+app.use('/api/v1/dashboard', require('./routes/dashboardRoutes'));
 
-app.use((req, res, next) => {
-    next(createError(404));
-});
+
+
+// app.use((req, res, next) => {
+//     next(createError(404));
+// });
 
 
 const port = process.env.PORT || 8080;

@@ -19,6 +19,11 @@ export const registerUserReq = async (name, email, password, mobile_no) => {
       console.log("erroer",e);
     }
   };
+
+  export const isUserAuthenticated = () => {
+    return window.localStorage.getItem('token');
+    // return false;
+  };
   
 export const loginUserReq = async (email, password) =>{
   try{
