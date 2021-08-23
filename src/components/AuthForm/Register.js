@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import bn from "../../utils/bemnames";
 
-const bem = bn.create("register");
+const bem = bn.create("login");
 const Register = ({
   handleOnChangeName,
   handleOnChangeMobileno,
@@ -16,7 +16,6 @@ const Register = ({
   confirm_password,
   RegisterUserReq,
 }) => {
-
   const [formVal, setFormVal] = useState({
     name: "",
     password: "",
@@ -31,26 +30,29 @@ const Register = ({
       };
     });
   };
-  const handleSubmit = async (e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if(formVal.password === formVal.confirm_password){
-      const data = {
-        name : fullName,
-        email : email,
-        password : password,
-        mobile_no : mobile_no
+    if( formVal.name !== "" && formVal.password !== "" && formVal.confirm_password !== "" && formVal.email !== "" && formVal.mobile_no !== ""){
+      if (formVal.password === formVal.confirm_password) {
+        const data = {
+          name: fullName,
+          email: email,
+          password: password,
+          mobile_no: mobile_no,
+        };
+        await RegisterUserReq(formVal);
+      } else {
+        alert("Password not matched!")
       }
-      await RegisterUserReq(formVal)
     }else {
-      console.log("password not matched");
+      alert("please Fill require field");
     }
     
-    
-  }
+  };
   return (
     <>
       <div className={bem.b("")}>
-        <nav className="navbar navbar-expand-lg navbar-light navbar-laravel">
+        {/* <nav className="navbar navbar-expand-lg navbar-light navbar-laravel">
           <div className="container">
             <div
               className="collapse navbar-collapse"
@@ -70,7 +72,7 @@ const Register = ({
               </ul>
             </div>
           </div>
-        </nav>
+        </nav> */}
 
         <main className="my-form">
           <div className="cotainer">
@@ -79,13 +81,18 @@ const Register = ({
                 <div className="card">
                   <div className="card-header">Register</div>
                   <div className="card-body">
-                    <form name="my-form" action="#" onSubmit={handleSubmit}  method="get">
+                    <form
+                      name="my-form"
+                      action="#"
+                      onSubmit={handleSubmit}
+                      method="get"
+                    >
                       <div className="form-group row">
                         <label
                           for="full_name"
                           className="col-md-4 col-form-label text-md-right mb-3"
                         >
-                          Full Name
+                          Full Name <label title="Required fields" style={{color:"red"}}>*</label>
                         </label>
                         <div className="col-md-6">
                           <input
@@ -103,7 +110,7 @@ const Register = ({
                           for="email_address"
                           className="col-md-4 col-form-label text-md-right mb-3"
                         >
-                          E-Mail Address
+                          E-Mail Address <label title="Required fields" style={{color:"red"}}>*</label>
                         </label>
                         <div className="col-md-6">
                           <input
@@ -121,7 +128,7 @@ const Register = ({
                           for="phone_number"
                           className="col-md-4 col-form-label text-md-right mb-3"
                         >
-                          Phone Number
+                          Phone Number <label title="Required fields" style={{color:"red"}}>*</label>
                         </label>
                         <div className="col-md-6">
                           <input
@@ -130,16 +137,20 @@ const Register = ({
                             className="form-control mb-3"
                             name="mobile_no"
                             onChange={inputEvent}
+                            minLength="10"
+                            min="999999999"
+                            max="999999999"
+                            maxLength="10"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="form-group row">
                         <label
                           for="password"
                           className="col-md-4 col-form-label text-md-right mb-3"
                         >
-                          Password
+                          Password <label title="Required fields" style={{color:"red"}}>*</label>
                         </label>
                         <div className="col-md-6">
                           <input
@@ -148,16 +159,17 @@ const Register = ({
                             name="password"
                             className="form-control mb-3"
                             onChange={inputEvent}
+                            minLength="8"
                           />
                         </div>
                       </div>
-                      
+
                       <div className="form-group row">
                         <label
                           for="confirm_password"
                           className="col-md-4 col-form-label text-md-right mb-3"
                         >
-                          Confirm Password
+                          Confirm Password <label title="Required fields" style={{color:"red"}}>*</label>
                         </label>
                         <div className="col-md-6">
                           <input
@@ -166,10 +178,16 @@ const Register = ({
                             name="confirm_password"
                             className="form-control mb-3"
                             onChange={inputEvent}
+                            minLength="8"
                           />
                         </div>
                       </div>
-                      
+                      <div className="row mb-3 mt-2">
+                        <div className="col-md-4" />
+                        <label className="col-md-6">
+                          Already Account? <a href="/login">Click here</a>
+                        </label>
+                      </div>
                       <div className="col-md-6 offset-md-4">
                         <button type="submit" className="btn btn-primary">
                           Register

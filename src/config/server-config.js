@@ -1,7 +1,8 @@
-export const baseUrl = 'http://localhost:8080';
-export const tokenSecrectKey = 'c012690c-c97d-4e35-aeed-7bc6eeec4e6b';
+export const baseUrl = "";
+export const tokenSecrectKey = "c012690c-c97d-4e35-aeed-7bc6eeec4e6b";
+// "c012690c-c97d-4e35-aeed-7bc6eeec4e6b"
 
-// export const headers= { authorization: `Bearer ${localStorage.getItem("token")}` };
+ export const headers= { authorization: `Bearer ${localStorage.getItem("token")}` };
 
 
 export const registerUser = `${baseUrl}/api/v1/register/registerUser`;

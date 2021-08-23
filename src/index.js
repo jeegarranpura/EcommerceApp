@@ -1,7 +1,7 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import 'core-js/stable';
-// import "core-js/features/string/repeat";
+import "core-js/features/string/repeat";
 import assign from 'core-js/features/object/assign';
 import 'core-js/features/string/virtual/replace-all';
 import 'promise-polyfill/src/polyfill';

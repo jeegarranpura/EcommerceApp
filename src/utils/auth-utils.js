@@ -1,5 +1,6 @@
 import axios from 'axios';
 import config from '../config/server-config';
+import { history } from './navigation-utils';
 
 export const registerUserReq = async (name, email, password, mobile_no) => {
     try {
@@ -20,10 +21,17 @@ export const registerUserReq = async (name, email, password, mobile_no) => {
     }
   };
 
-  export const isUserAuthenticated = () => {
-    return window.localStorage.getItem('token');
+  export const isUserAuthenticated = () =>{
+    let token = window.localStorage.getItem('token');
+    let result ;
+    if(token !== null){
+      result = true;
+    }else {
+      result = false;
+    }
+    return result;
+  } 
     // return false;
-  };
   
 export const loginUserReq = async (email, password) =>{
   try{
@@ -35,7 +43,7 @@ export const loginUserReq = async (email, password) =>{
 
         window.localStorage.setItem('token',res.data.token);
           window.localStorage.setItem('UserEmail',res.data.data.email);
-        console.log("res",res.data);
+        history.push('/');
         return res.data;
       }
 
@@ -49,4 +57,8 @@ export const loginUserReq = async (email, password) =>{
   catch(e) {
     return false;
   }
+}
+
+export const logout = () =>{
+ window.localStorage.clear();
 }

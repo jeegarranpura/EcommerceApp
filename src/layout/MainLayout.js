@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import HeaderContainer from '../features/LayoutContianers/HeaderContainer';
 import React from  'react';
 
 class MainLayout extends React.Component{
@@ -10,6 +11,7 @@ class MainLayout extends React.Component{
         return (
             <>
             <div className= "container">
+                <HeaderContainer />
                 {children}
             </div>
             </>

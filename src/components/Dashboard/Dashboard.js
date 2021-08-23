@@ -6,13 +6,12 @@ const bem = bn.create("dashboard");
 const Dashboard = (props) => {
   const { allUserData,
     userDetails } = props;
-  console.log(userDetails);
 
   return (
     <>
       <div className={bem.b("")}>
         <h1> Dashboard </h1>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        {/* <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <div className="container-fluid">
             <a className="navbar-brand" href="#">
             Home
@@ -40,7 +39,6 @@ const Dashboard = (props) => {
               <ul className="navbar-nav d-flex">
                 <li className="nav-item">
                   <a className="nav-link active" href="/login">
-                    {userDetails.UserEmail}
                   </a>
                 </li>
                 <button className="btn btn-outline-success" type="submit">
@@ -49,7 +47,7 @@ const Dashboard = (props) => {
               </ul>
             </div>
           </div>
-        </nav>
+        </nav> */}
         <div className="row">
           <table className="table table-dark table-striped">
             <thead>
