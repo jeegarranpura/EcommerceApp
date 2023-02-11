@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, '../') + '/build'));
 
 app.use('/api/v1', require('./routes/authRoute'));
 app.use('/api/v1/dashboard', require('./routes/dashboardRoutes'));
+app.use('/api/v1/contact', require('./routes/contactRoute'));
 
 
 
